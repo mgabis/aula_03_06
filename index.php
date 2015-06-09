@@ -3,8 +3,8 @@ echo '<pre>';
 var_dump($_GET);
 echo '</pre>';
 
-$con = new mysqli ('197.0.0.1', 'root', '', 'lp2_2015');
-$sql = $con->preparate('INSERT INTO pessoas('
+$con = new mysqli ('127.0.0.1', 'root', '', 'lp2_2015');
+$sql = $con->prepare('INSERT INTO pessoa ('
         . 'nome, '
         . 'endereco, '
         . 'sexo, '
@@ -17,12 +17,10 @@ if(isset($_GET['ativo'])){
     $ativo = 0;
 }
 
-$sql->blind_param('$', $_GET['nome']);
-$sql->blind_param('$', $_GET['endereco']);
-$sql->blind_param('$', $_GET['sexo']);
-$sql->blind_param('i', $_GET['ativo']);
+$sql->bind_param('sssi', $_GET['nome'], $_GET['endereco'], $_GET['sexo'], $_GET['ativo']);
 
-$sql -> execute;
+$sql -> execute();
+
 
 ?>
 
